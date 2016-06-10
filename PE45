@@ -1,0 +1,20 @@
+#include <iostream>
+using namespace std;
+#include <math.h>
+
+int main() {
+	long long n = 4000;
+	int flag = 0;
+	long long number;
+	double nP, nH;
+	while (flag == 0){
+	    number = n*(n+1)/2;
+	    nP = (1 + sqrt(1 + 24*number))/6;
+	    nH = (1 + sqrt(1 + 8*number))/4;
+	    if (nP == (int)nP && nH == (int)nH)
+	        flag = 1;
+	    n++;
+	}
+	cout<<number<<" "<<nH<<" "<<nP<<endl;
+	return 0;
+}
