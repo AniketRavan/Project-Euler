@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+# include <math.h>
+
+int hcf(int a, int b) {
+   	if (a == b)
+   		return a;
+   	if (b == 0) {
+  		return a;
+   	} else {
+    	return hcf(b, a % b);
+   }
+}
+
+int main(){
+	int count = 0;
+	int num, den, NUM, DEN, common, period;
+	int residue;
+	int idx = 1;
+	for (int i = 2; i <= 10000; i++){
+		period = 1;
+		int temp;
+		residue = sqrt(i);
+		if (residue*residue == i)
+			period = 0;
+		else{
+			NUM = 1;
+			DEN = -residue;
+			num = i - DEN*DEN;
+			den = - DEN - num*((residue - DEN)/num);
+			//cout<<num<<"  "<<den<<"  "<<(residue - den)/num<<endl;
+			while (num != NUM || den != DEN){
+				temp = num;
+				num = i - den*den;
+				if (num >= temp)
+					common = hcf(num, temp);
+				else 
+					common = hcf(temp, num);
+				num = num/common;
+				den = - den - num*((residue - den)/num);
+				//cout<<num<<"  "<<den<<"  "<<(residue - den)/num<<endl;
+				period++;
+				idx++;
+			}
+		}
+		if (period % 2 == 1)
+			count++;
+	}
+	cout<<count;
+	return 0;
+}
