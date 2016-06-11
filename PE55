@@ -1,0 +1,40 @@
+#include <iostream>
+using namespace std;
+
+unsigned long long reverse(long long number){
+	unsigned long long rev_num = 0;
+	while (number > 0){
+		rev_num = rev_num*10 + number % 10;
+		number = number/10;
+	}
+	return rev_num;
+}
+
+bool is_Palindrome( unsigned long long number){
+	if (reverse(number) == number)
+		return true;
+	else 
+		return false;
+}
+
+bool is_Lychrel(unsigned long long number){
+	for (int i = 0; i < 50; i++){
+		number = number + reverse(number);
+		if (is_Palindrome(number)){
+			//cout<<number<<" ";
+			return false;
+		}
+	}
+	return true;
+}
+
+int main(){
+	int count = 0;
+	for (int i = 1; i < 10000; i++){
+		if (is_Lychrel(i))
+			//cout<<i<<endl;
+			count++;
+	}
+	cout<<endl<<count;
+	return 0;
+}
