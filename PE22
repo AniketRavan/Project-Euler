@@ -1,0 +1,88 @@
+#include <iostream>
+using namespace std;
+#include <fstream>
+#include <math.h>
+
+bool compare(string a, string b){
+	int char_a, char_b;
+	for (int i = 0; i < a.length(); i++){
+		char_a = a[i];
+		char_b = b[i];
+		if (char_a > char_b){
+			return false;
+		}
+		if (char_a < char_b){
+			return true;
+		}
+	}
+	if (a.length() > b.length())
+		return false;
+	else
+		return true;
+}
+
+void bubble_sort(string array[], int n){
+	string temp1;
+	for (int i = 0; i < n - 1; i++){
+		for (int j = 0; j < n - i - 1; j++){
+			if (!compare(array[j], array[j + 1])){
+				//cout<<array[j]<<" "<<array[j + 1]<<endl;
+				temp1 = array[j];
+				array[j] = array[j + 1];
+				array[j + 1] = temp1;
+			}
+		}
+	}
+}
+
+int word_score(string name){
+	int score = 0;
+	for (int i = 0; i < name.length(); i++){
+		int temp, deduct;
+		temp = name[i];
+		if (temp >= 65 && temp <= 90)
+			deduct = 64;
+		else 
+			deduct = 96;
+		score = score + name[i] - deduct;
+	}
+	return score;	
+}
+
+int main(){
+	ifstream myfile;
+	ofstream myfile1;
+	myfile1.open("p022_names_clean.txt");
+	myfile.open("p022_names.txt");
+	string names;
+	int count = 0;
+	myfile>>names;
+	int idx = 0;
+	while (idx < names.length()){
+		if (names[idx] != '"' && names[idx] != ',')
+			myfile1<<names[idx];
+		if (names[idx] == ','){
+			count++;
+			myfile1<<" ";
+		}
+		idx++;
+	}
+	myfile.close();
+	myfile1.close();
+	count+=1;
+	ifstream myfile2;
+	string name;
+	string names_array[count];
+	myfile2.open("p022_names_clean.txt");
+	for (int i = 0; i < count; i++){
+		myfile2>>name;
+		names_array[i] = name;
+	}
+	bubble_sort(names_array, count);
+	int score = 0;
+	for (int i = 0; i < count; i++){
+		score = score + word_score(names_array[i])*(i+1);
+	}
+	cout<<score;
+	return 0;
+}
