@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+#include <math.h>
+
+int main(){
+	int* prime = new int [1000000] ();
+	prime[0] = 1;
+	prime[1] = 1;
+	for (int i = 2; i <= 500000; i++){
+		for (int j = 2*i; j <= 1000000; j+=i){
+			prime[j] = 1;
+		}
+	}
+	int count = 0;
+	for (int i = 0; i < 1000000; i++){
+		if (prime[i] == 0)
+			count++;
+	}
+	int prime_array[count];
+	int idx = 0;
+	for (int i = 0; i < 1000000; i++){
+		if (prime[i] == 0){
+			prime_array[idx] = i;
+			idx++;
+		}
+	}
+	int number, max_number;
+	int max = 0;
+	for (int i = 0; i < count; i++){
+		number = prime_array[i];
+		if (i % 1000 == 0)
+			cout<<i<<endl;
+		for (int j = 0; j <= i; j++){
+			if (prime_array[j] > floor(number/2))
+				break;
+			int sum = 0;
+			idx = 0;
+			while (sum < number){
+				sum = sum + prime_array[j + idx];
+				idx++;
+			}
+			if (sum == number)
+				if (idx > max){
+					max = idx;
+					max_number = number;
+				}
+			}
+	}
+	cout<<max_number<<"  "<<max;
+	return 0;
+}
