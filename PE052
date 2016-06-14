@@ -1,0 +1,64 @@
+#include <iostream>
+using namespace std;
+
+void bubble_sort(int array[], int n){ // modified bubble_sort
+	int temp1;
+	for (int i = 0; i < n - 1; i++){
+		for (int j = 0; j < n - i - 1; j++){
+			if (array[j] > array[j + 1]){
+				//cout<<array[j]<<" "<<array[j + 1]<<endl;
+				temp1 = array[j];
+				array[j] = array[j + 1];
+				array[j + 1] = temp1;
+			}
+		}
+	}
+    int idx = 0;
+if (array[0] == 0){       
+        while (array[idx] == 0){
+            idx++;
+        }
+        //cout<<idx<<endl;
+        array[0] = array[idx];
+        array[idx] = 0;
+    }
+}
+
+int rearrange(int number){
+	int new_num = 0;
+	int temp = number;
+	int count = 0;
+	while (temp > 0){
+		temp = temp/10;
+		count++;
+	}
+	int num_array[count];
+	for (int i = 0; i < count; i++){
+		num_array[i] = number % 10;
+		number = number/10;
+	}
+	bubble_sort(num_array, count);
+	for (int i = 0; i < count; i++){
+		new_num = 10*new_num + num_array[i];
+		//cout<<new_num<<endl;
+	}
+	return new_num;
+}
+
+int main() {
+	int flag = 0;
+	int n2, n3, n4, n5, n6;
+	int n = 100;
+	while (flag == 0){
+	    n2 = rearrange(n*2); 
+	    n3 = rearrange(n*3); 
+	    n4 = rearrange(n*4); 
+	    n5 = rearrange(n*5); 
+	    n6 = rearrange(n*6);
+	    if (n2 == n3 && n3 == n4 && n4 == n5 && n5 == n6)    
+	        flag = 1;
+	    n++;
+	}
+	cout<<n - 1<<" "<<n2<<" "<<n3<<" "<<n4;
+	return 0;
+}
