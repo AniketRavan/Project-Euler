@@ -1,0 +1,87 @@
+#include <iostream>
+using namespace std;
+ 
+long long array2int(int a[], int n){
+	long long number = 0;
+	for (int i = 0; i < n; i++){
+		number = number*10 + a[i];
+	}
+	return number;
+}
+
+bool repeat(int a[],int size){
+	for (int i = 0; i < size; i++){
+		for (int j = i + 1; j < size; j++)
+			if (a[i] == a[j])
+				return true;
+	}
+	return false;
+}
+ 
+bool found(int number[]){
+	int array[3];
+	int dividend;
+	int prime[7] = {2,3,5,7,11,13,17};
+	for (int i = 0; i < 7; i++){
+		array[0] = number[i + 1];
+		array[1] = number[i + 2];
+		array[2] = number[i + 3];
+		dividend = array2int(array, 3);
+		//cout<<dividend<<"  "<<prime[i]<<endl;
+		if (dividend % prime[i] != 0)
+			return false;
+	}
+	return true;
+}
+
+int main(){
+	int idx = 0;
+	long long sum = 0;
+	//Generating permutations by brute force
+	int pandigital[10];
+	for (int i = 1; i < 10; i++){
+		pandigital[0] = i;
+		for (int j = 0; j < 10; j++){
+				pandigital[1] = j;
+	
+			for (int k = 0; k < 10; k++){
+				pandigital[2] = k;
+
+				for (int l = 0; l < 10; l++){
+					pandigital[3] = l;
+		
+					for (int m = 0; m < 10; m++){
+						pandigital[4] = m;
+						
+						
+						for (int n = 0; n < 10; n++){
+							pandigital[5] = n;
+							
+							for (int o = 0; o < 10; o++){
+								pandigital[6] = o;
+								
+								for (int p = 0; p < 10; p++){
+									pandigital[7] = p;
+									
+									for (int q = 0; q < 10; q++){
+										pandigital[8] = q;
+										
+										for (int r = 0; r < 10; r++){
+											pandigital[9] = r;
+											if (!repeat(pandigital, 10)){
+													if (found(pandigital))
+														sum = sum + array2int(pandigital, 10);
+											}
+										}	
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	cout<<sum;
+	return 0;
+}
