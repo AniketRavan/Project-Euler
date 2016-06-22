@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+#include <math.h>
+
+bool find(unsigned long long array[], unsigned long long VAL, unsigned long long N)
+{
+	int Mid,Lbound=0,Ubound=N-1;
+	while(Lbound<=Ubound)
+	{
+		Mid = (Lbound + Ubound)/2;
+		if (VAL > array[Mid])
+			Lbound = Mid +1;
+		else if (VAL < array[Mid])
+			Ubound = Mid - 1;
+		else
+			return true;
+	}
+	return false;
+}
+
+int main() {
+	unsigned long long pent;
+	unsigned long long i = 0;
+	while (pent < 199999999999999){
+	    i++;
+	    pent = i*(3*i - 1)/2;
+	}
+	unsigned long long sum;
+	unsigned long long difference;
+	unsigned long long* pent_array = new unsigned long long [i];
+	for (long long j = 1; j <= i; j++)
+	    pent_array[j - 1] = (j)*(3*j - 1)/2;
+	for (long long j = 0; j < i - 1; j++){
+	    cout<<j<<endl;
+	    for (long long k = j + 1; k < i; k++){
+	        sum = pent_array[j] + pent_array[k];
+            difference = pent_array[k] - pent_array[j];
+            if (find(pent_array, sum, i) && find(pent_array, difference, i)){
+                cout<<pent_array[j]<<"  "<<pent_array[k];
+                return 0;
+            }
+	    }
+                
+	    }
+	return 0;
+}
