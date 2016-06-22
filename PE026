@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+
+int length_cycle(int d){
+    int length = 0;
+    int r_array[d] = {0};
+    int r = 1;
+    while (r_array[r] == 0){
+        r_array[r] = 1;
+        r = r*10 % d;
+        length++;
+    }
+    return length;
+}
+
+int main() {
+    int max = 0;
+    int d;
+	for (int i = 2; i < 1000; i++){
+	    if (length_cycle(i) > max){
+	        d = i;
+	        max = length_cycle(i);
+	    }
+	}
+	cout<<d<<"  "<<max<<endl;
+	return 0;
+}
