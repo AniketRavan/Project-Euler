@@ -1,0 +1,9 @@
+The text file contains a reasonably small number of entries. And the best part is that the numbers in the key don't repeat.
+I made two columns for every number: one for all numbers before that number and the other for all numbers after that number.
+For example:
+
+ **Digits before 7**                        **Digits after 7**
+      None                                     3,1,6,2,8,9,0
+Since digits after 7 are the only digits that appear in the text file, we can say with certainty that 7 is the first digit of the key. 
+Once you note down 7, strike it off from all columns. Similarly, you can work out the last digit of the key. Work your way inwards by 
+finding the digit next to the one you know with certainty by taking help from these columns. Hardly takes 5 minutes! 
