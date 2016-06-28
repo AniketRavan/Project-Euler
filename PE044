@@ -39,8 +39,7 @@ int main() {
                 cout<<pent_array[j]<<"  "<<pent_array[k];
                 return 0;
             }
-	    }
-                
-	    }
-	return 0;
+	}
+    }
+    return 0;
 }
