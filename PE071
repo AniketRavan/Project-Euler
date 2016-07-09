@@ -1,0 +1,35 @@
+# include <iostream>
+using namespace std;
+# include <math.h>
+
+//gcd using Euclid's lemma. Note that a should be greater than b
+int gcd(int a, int b){
+	if (a % b == 0)
+		return b;
+	if (b == 1)
+		return 1;
+	return gcd(b, a % b);
+}
+
+int main(){
+	int reference, multiple, LCM, num, NUM, DEN;
+	double min = 1;
+	long count = 0;
+	for (int d = 4; d <= 1000000; d++){
+		LCM = (d/gcd(d, 7)*7);
+		reference = 3*LCM/7; // reference numerator
+		multiple = LCM/d;
+		num = multiple*(ceil((double)reference/(double)multiple - 1));
+		while (gcd(num, d) != 1){
+			num -= multiple;
+		}
+		num = num/multiple;
+		if (3*1.0/(7*1.0) - (double)num/(double)d < min){
+			min = 3*1.0/(7*1.0) - (double)num/(double)d;
+			NUM = num;
+			DEN = d;
+		}
+	}
+	cout<<NUM<<"  "<<DEN;
+	return 0;
+}
