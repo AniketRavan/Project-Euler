@@ -1,0 +1,30 @@
+# include <iostream>
+using namespace std;
+
+//gcd using Euclid's lemma. Note that a should be greater than b
+int gcd(int a, int b){
+	if (a % b == 0)
+		return b;
+	if (b == 1)
+		return 1;
+	return gcd(b, a % b);
+}
+
+int main(){
+	int min, max, multiple, LCM;
+	long count = 0;
+	for (int d = 4; d <= 12000; d++){
+		LCM = (d/gcd(d, 6)*6);
+		max = LCM/2;
+		min = LCM/3;
+		multiple = LCM/d;
+		//cout<<min<<" "<<max<<"  "<<multiple<<endl<<endl;
+		for (int j = multiple*(min/multiple + 1); j < max; j += multiple){
+			//cout<<j<<endl;			
+			if (gcd(j/multiple, d) == 1)
+			 	count++;
+		}
+	}
+	cout<<count;
+	return 0;
+}
