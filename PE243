@@ -1,0 +1,59 @@
+// Needs a bit more effort than just running this code. This code just gives a place to start digging
+# include <iostream>
+using namespace std;
+
+long totient(long n, long prime[]){
+	int idx = 0;
+	int product = n;
+	//cout<<n<<" "<<prime[idx]<<endl;
+	while (n > prime[idx]){
+		if (n % prime[idx] == 0){
+			product = (product/prime[idx])*(prime[idx] - 1);
+		}
+		idx++;
+	}
+	if (n == prime[idx]){
+		if (n % prime[idx] == 0){
+			product = (product/prime[idx])*(prime[idx] - 1);
+		}
+	}
+	return product;
+}
+
+int main(){	
+	unsigned long long sum = 0;
+	long* prime_array = new long [10000000] ();
+	prime_array[0] = 1;
+	prime_array[1] = 1;
+	for (long i = 2; i < 5000000; i++)
+		for (long j = 2*i; j < 10000000; j+=i)
+			prime_array[j] = 1;
+	int count = 0;
+	for (long i = 0; i < 10000000; i++)
+		if (prime_array[i] == 0)
+			count++;
+	long* prime = new long [count];
+	long idx = 0;
+	for (long i = 0; i < 10000000; i++)
+		if (prime_array[i] == 0){
+			prime[idx] = i;
+			idx++;
+		}
+	cout<<"Primes have been generated"<<endl;
+	double rat = 1;
+	long d = 1;
+	long long product = 1;
+	double number = 1;
+	double ratio = 1;
+	int i = 0;
+	while (number >= 1.0*15499/(1.0*94744)){
+		if (i % 10000 == 0)
+			cout<<i<<" "<<number<<endl;
+		product = product*prime[i];
+		ratio = ratio*(prime[i] - 1)/prime[i];
+		number = (ratio*product*1.0)/(1.0*product - 1.0);
+		i++;
+	}
+	cout<<product<<" "<<number<<"  "<<prime[i-1]<<endl;
+	return 0;
+}
