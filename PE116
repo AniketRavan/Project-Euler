@@ -1,0 +1,29 @@
+# include <iostream>
+using namespace std;
+#include <math.h>
+
+unsigned long long factorial(unsigned long long number){
+	if (number == 0)
+		return 1;
+	return (number)*factorial(number - 1);
+}
+
+unsigned long long comb( unsigned n, unsigned k ){
+    if (k == 0 || k == n)
+    	return 1;
+    return comb(n - 1, k - 1) + comb(n - 1,k);
+}
+
+int main(){
+	unsigned long long sum = 0;
+	unsigned long long size[3] = {2,3,4};
+	for (int j = 0; j < 3; j++){
+		cout<<sum<<endl;
+		for (unsigned long long i = 1; i <= 50/size[j]; i++){
+			sum = sum + comb(50 - size[j]*i + i, i);
+			cout<<i<<" "<<comb(50 - size[j]*i + i, i)<<endl;
+		}
+	}
+	cout<<sum;
+	return 0;
+}
