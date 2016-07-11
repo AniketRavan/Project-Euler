@@ -1,0 +1,70 @@
+# include <iostream>
+using namespace std;
+#include <math.h>
+
+unsigned long long reduce(unsigned long long a, unsigned long long b){
+	if (a % b == 0)
+		return b;
+	return reduce(b, a % b);
+}
+
+unsigned long long combinations(int n_red, int n_green, int n_blue, int total){
+	int n_black = total - (n_red + n_green + n_blue);
+	int n_objects = n_black + n_red/2 + n_green/3 + n_blue/4;
+	unsigned long long numerator = 1;
+	unsigned long long denominator = 1;
+	int i = n_black + 1;
+	int n1 = 1;
+	int n2 = 1;
+	int n3 = 1;
+	unsigned long long factor;
+	while (i <= n_objects || n1 <= n_red/2 || n2 <= n_green/3 || n3 <= n_blue/4){
+		if (i <= n_objects){
+			numerator = numerator*i;
+			i++;
+		}
+		factor = reduce(numerator, denominator);
+		numerator /= factor;
+		denominator /= factor;
+		if (n1 <= n_red/2){
+			denominator = denominator*n1;
+			n1++;
+		}
+		factor = reduce(numerator, denominator);
+		numerator /= factor;
+		denominator /= factor;
+		if (n2 <= n_green/3){
+			denominator = denominator*n2;
+			n2++;
+		}
+		factor = reduce(numerator, denominator);
+		numerator /= factor;
+		denominator /= factor;
+		if (n3 <= n_blue/4){
+			denominator = denominator*n3;
+			n3++;
+		}
+		factor = reduce(numerator, denominator);
+		numerator /= factor;
+		denominator /= factor;	
+	}
+	return numerator;
+}
+
+int main(){
+	int n_red, n_green, n_blue;
+	int size_red = 2;
+	int size_green = 3;
+	int size_blue = 4;
+	unsigned long long sum = 0;
+	int total = 50;
+	for (int n_red = 0; n_red <= total; n_red+=2){
+		for (int n_green = 0; n_green <= total - n_red; n_green+=3){
+			for (int n_blue = 0; n_blue <= total - n_green - n_red; n_blue+=4){
+				sum = sum + combinations(n_red, n_green, n_blue, total);
+			}
+		}
+	}
+	cout<<sum;
+	return 0;
+}
