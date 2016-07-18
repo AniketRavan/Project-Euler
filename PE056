@@ -1,0 +1,14 @@
+def digital_sum(a):
+    sum = 0;
+    for character in str(a):
+        sum = sum + int(character);
+    return sum;
+
+max = 0;
+
+for base in range(2, 100):
+    for exponent in range(2, 100):
+        if (digital_sum(base**exponent) > max):
+            max = digital_sum(base**exponent);
+
+print max;
