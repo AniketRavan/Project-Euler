@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+
+int r(int a){
+	int r = 0;
+	int max = 0;
+	int temp1 = (a - 1) % (a*a);
+	int temp2 = (a + 1) % (a*a);
+	int r_first = ((a - 1)*(a - 1)) % (a*a);
+	int r_second = ((a + 1)*(a + 1)) % (a*a);
+	//for n = 1 the remainder will always be 2
+	while (r_first != temp1 || r_second != temp2){
+		r_first = (r_first*(a - 1)) % (a*a);
+		r_second = (r_second*(a + 1)) % (a*a);
+		r = (r_first + r_second) % (a*a);
+		//cout<<r<<" "<<r_first<<" "<<r_second<<endl;
+		if (r > max)
+			max = r;
+	}
+	return max;
+}
+
+
+int main(){
+	long sum = 0;
+	for (int i = 3; i <= 1000; i++){
+		sum+=r(i);
+	}
+	cout<<sum;
+	return 0;
+}
