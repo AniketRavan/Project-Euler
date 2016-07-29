@@ -1,0 +1,77 @@
+# include <iostream>
+using namespace std;
+
+int main(){
+	int pyramid[4];
+	for (int i = 0; i < 4; i++)
+			pyramid[i] = i + 1;
+	
+	int cube[6];
+	for (int i = 0; i < 6; i++)
+			cube[i] = i + 1;
+	
+	long size_pyramid_sum = 1;
+	long size_cube_sum = 1;
+	for (int i = 0; i < 9; i++)
+		size_pyramid_sum*=4;
+	for (int i = 0; i < 6; i++)
+		size_cube_sum*=6;
+	long pyramid_sum[size_pyramid_sum];
+	long cube_sum[size_cube_sum];
+	int idx = 0;
+	for (int i = 0; i < 4; i++){
+		for (int j = 0; j < 4; j++){
+			for (int k = 0; k < 4; k++){
+				for (int l = 0; l < 4; l++){
+					for (int m = 0; m < 4; m++){
+						for (int n = 0; n < 4; n++){
+							for (int o = 0; o < 4; o++){
+								for (int p = 0; p < 4; p++){
+									for (int q = 0; q < 4; q++){
+										pyramid_sum[idx] = pyramid[i]+ pyramid[j] + pyramid[k] + pyramid[l] + pyramid[m] + pyramid[n] + pyramid[o] + pyramid[p] + pyramid[q];
+										idx++;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	idx = 0;
+	for (int i = 0; i < 6; i++){
+		for (int j = 0; j < 6; j++){
+			for (int k = 0; k < 6; k++){
+				for (int l = 0; l < 6; l++){
+					for (int m = 0; m < 6; m++){
+						for (int n = 0; n < 6; n++){
+							cube_sum[idx] = cube[i] + cube[j] + cube[k] + cube[l] + cube[m] + cube[n];
+							idx++;
+						}
+					}
+				}
+			}
+		}
+	}
+	unsigned long long id = 0;
+	unsigned long long count = 0;
+	for (int i = 0; i < size_pyramid_sum; i++)
+		for (int j = 0 ; j < size_cube_sum; j++){
+			if (pyramid_sum[i] > cube_sum[j]){
+				count++;
+			}
+			id++;
+		}
+	int max = 0;
+	for (int i = 0; i < size_pyramid_sum; i++){
+		if (pyramid_sum[i] > max)
+			max = pyramid_sum[i];
+	}
+	cout<<max<<endl<<endl;
+	double probability;
+	probability = count*1.0/(1.0*id);
+	cout.precision(8);
+	cout<<probability<<" "<<count<<endl;
+	return 0;
+}
