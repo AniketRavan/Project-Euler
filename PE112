@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+bool is_bouncy(unsigned long long number){
+	unsigned long long temp = number;
+	int digit1, digit2;
+	bool flag;
+	digit1 = 1;
+	digit2 = 1;
+	while (digit1 == digit2){
+		digit1 = temp - 10*(temp/10);
+		digit2 = temp/10 - 10*((temp/10)/10);
+		temp = temp/10;
+	}
+	temp = number;
+	flag = digit1 > digit2;
+	while (temp > 9){
+		digit1 = temp - 10*(temp/10);
+		digit2 = temp/10 - 10*((temp/10)/10);
+		temp = temp/10;
+		if (digit1 != digit2){
+			if (flag != (digit1 > digit2) && (digit1 != digit2))
+				return true;
+			flag = digit1 > digit2;
+			//cout<<flag<<" "<<digit1<<" "<<digit2<<endl;
+		}
+	}
+	return false;
+}
+
+int main(){
+	long bouncy_count = 0;
+	int i = 99;
+	double ratio = (1.0*bouncy_count)/(1.0*i);
+	while (ratio < 0.99){
+		i++;
+		if (is_bouncy(i)){
+			bouncy_count++;
+			//cout<<i<<endl;
+		}
+		ratio = (1.0*bouncy_count)/(1.0*i);
+	}
+	cout<<bouncy_count<<" "<<i;
+	return 0;
+}
